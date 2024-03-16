@@ -65,11 +65,20 @@ router.post("/", (req, res) => {
 // update product
 router.put("/:id", (req, res) => {
   // update product data
-  Product.update(req.body, {
-    where: {
-      id: req.params.id,
+  Product.update(
+    req.body,
+    {
+      product_name: req.body.product_name,
+      price: req.body.price,
+      stock: req.body.price,
+      tag_id: req.body.tagIds,
     },
-  })
+    {
+      where: {
+        id: req.params.id,
+      },
+    }
+  )
     .then((product) => {
       if (req.body.tagIds && req.body.tagIds.length) {
         ProductTag.findAll({
